@@ -30,8 +30,8 @@ public abstract class Lista {
 		this.tarefas = tarefas;
 	}
 
-	public void cadastrarTarefa(String titulo, String data, boolean tipo) {
-		Tarefa tarefa = new Tarefa(titulo, data, tipo);
+	public void cadastrarTarefa(String titulo, String data) {
+		Tarefa tarefa = new Tarefa(titulo, data);
 		tarefas.add(tarefa);
 	}
 
@@ -67,10 +67,10 @@ public abstract class Lista {
 
 	}
 
-	public void editarTarefa(String titulo, String novoTitulo, String novaData, boolean novoTipo) {
+	public void editarTarefa(String titulo, String novoTitulo, String novaData) {
 		int index = pegarIndexTarefa(titulo);
 
-		Tarefa novaTarefa = new Tarefa(novoTitulo, novaData, novoTipo);
+		Tarefa novaTarefa = new Tarefa(novoTitulo, novaData);
 
 		if (index >= 0) {
 			tarefas.set(index, novaTarefa);

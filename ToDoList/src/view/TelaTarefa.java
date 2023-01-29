@@ -3,31 +3,21 @@ package view;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 
-import controller.CadastroUsuarioController;
 import listadetarefas.Usuario;
 import listadetarefas.Lista;
-import listadetarefas.Pessoal;
 import listadetarefas.Tarefa;
 
 public class TelaTarefa extends JFrame {
@@ -36,7 +26,6 @@ public class TelaTarefa extends JFrame {
 
 	private JTextField Nome = new JTextField("", 15);
 	private JTextField Data = new JTextField("", 15);
-	private JComboBox<String> Tipo = new JComboBox<>();
 
 	public TelaTarefa(Usuario usuario, Lista lista, String tipoLista) {
 		super("Tarefa");
@@ -66,22 +55,11 @@ public class TelaTarefa extends JFrame {
 
 		Data.setBounds(650, 80, 347, 34);
 
-		JLabel Tipo1 = new JLabel("Tipo:");
-		Tipo1.setForeground(Color.WHITE);
-		Tipo1.setFont(fonte2);
-		Tipo1.setBounds(480, 120, 220, 34);
-
-		Tipo.setBounds(480, 150, 220, 34);
-		Tipo.addItem("Importante");
-		Tipo.addItem("Normal");
-
 		c.add(label);
 		c.add(AdicionarNome);
 		c.add(Nome);
 		c.add(AdicionarData);
 		c.add(Data);
-		c.add(Tipo1);
-		c.add(Tipo);
 
 		String[] Listas = {};
 		JList jlista = new JList<>(Listas);
@@ -96,10 +74,9 @@ public class TelaTarefa extends JFrame {
 		botaoAdicionar.addActionListener((ActionListener) new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				String tipoSelecionado = Tipo.getSelectedItem().toString(); // TODO: Consertar tipo
-				model.addElement(Nome.getText() + " - " + Data.getText() + " - " + true);
+				model.addElement(Nome.getText() + " - " + Data.getText());
 				jlista.setModel(model);
-				lista.cadastrarTarefa(Nome.getText(), Data.getText(), true);
+				lista.cadastrarTarefa(Nome.getText(), Data.getText());
 
 				JOptionPane msg = new JOptionPane("Tarefa cadastrada com sucesso!");
 			}
@@ -155,7 +132,7 @@ public class TelaTarefa extends JFrame {
 		ArrayList<Tarefa> listaDeTarefas = lista.getTarefas();
 		for (Tarefa tarefa : listaDeTarefas) {
 			System.out.println(tarefa.getTitulo());
-			model.addElement(tarefa.getTitulo() + " - " + tarefa.getData() + " - " + tarefa.getTipo());
+			model.addElement(tarefa.getTitulo() + " - " + tarefa.getData());
 		}
 		jlista.setModel(model);
 		setVisible(true);
