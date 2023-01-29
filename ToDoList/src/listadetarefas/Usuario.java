@@ -193,17 +193,18 @@ public class Usuario {
 		}
 	}
 
-	public void excluirPessoal(String string) {
+	public void excluirPessoal(String listaP) {
 		System.out.println("esther");
 		for (int i = 0; i < listaPessoal.size(); i++) {
-			if (listaPessoal.get(i).equals(string)) {
+			if (listaPessoal.get(i).equals(listaP)) {
 				listaPessoal.remove(listaPessoal.get(i));
 			}
 		}
 	}
 
-	public void cadastrarTrabalho(Trabalho listaTrabalhoCadastrada) {
-		listaTrabalho.add(listaTrabalhoCadastrada);
+	public void cadastrarTrabalho(String nome, String destinatario, boolean tip2) {
+		Trabalho listaCadastradaTrabalho = new Trabalho(nome, destinatario, tip2);
+		listaTrabalho.add(listaCadastradaTrabalho);
 	}
 
 	public void buscarTrabalho(String nome) {
@@ -216,9 +217,9 @@ public class Usuario {
 		}
 	}
 
-	public void excluirTrabalho(Trabalho litaT) {
+	public void excluirTrabalho(Trabalho listaT) {
 		for (int i = 0; i < listaTrabalho.size(); i++) {
-			if (listaTrabalho.get(i).equals(litaT)) {
+			if (listaTrabalho.get(i).equals(listaT)) {
 				listaTrabalho.remove(listaTrabalho.get(i));
 			}
 		}

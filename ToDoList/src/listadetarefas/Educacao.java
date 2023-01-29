@@ -30,7 +30,6 @@ public class Educacao extends Lista {
 		this.campus = campus;
 	}
 
-
 	public boolean getTipo1(boolean tipo1) {
 		return tipo1;
 	}
@@ -39,7 +38,9 @@ public class Educacao extends Lista {
 		this.Tipo1 = tipo1;
 	}
 
-	public String atualizaDados1(boolean dados) {
+	// outros metodos
+
+	public String atualizaDados(boolean dados) {
 		if (toString() == "Prova") {
 			tipo1 = true;
 		} else {
@@ -50,7 +51,6 @@ public class Educacao extends Lista {
 
 	public boolean getParticipantes() {
 		return Participantes;
-
 	}
 
 	public void setParticipantes(boolean participantes) {
@@ -67,16 +67,5 @@ public class Educacao extends Lista {
 		}
 		return part;
 	}
-
-	public String atualizaDados(boolean dados) {
-		if (toString() == "Solo") {
-			Participantes = true;
-		} else {
-			Participantes = false;
-		}
-		return toString();
-	}
-
-	
 
 }

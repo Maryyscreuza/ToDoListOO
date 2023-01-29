@@ -3,7 +3,8 @@ package view;
 import controller.*;
 
 import controller.CadastroUsuarioController;
-
+import listadetarefas.Educacao;
+import listadetarefas.Pessoal;
 import listadetarefas.Trabalho;
 import listadetarefas.Usuario;
 
@@ -12,6 +13,7 @@ import java.awt.Container;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -29,23 +31,21 @@ public class TrabalhoTela extends JFrame implements ActionListener, ListSelectio
 
 	DefaultListModel model = new DefaultListModel();
 
-	private static final long serialVersionUID = 1L;
-
 	private JTextField Nome;
 	private JTextField Destinatario;
 	JComboBox<String> Tipo2 = new JComboBox<>();
-	protected Usuario usuario;
-	CadastroUsuarioController controller = new CadastroUsuarioController();
+
 	private JList<String> listasTrabalho;
 
-	public TrabalhoTela(Usuario user) {
+	public TrabalhoTela(Usuario usuario) {
 		super("Trabalho");
 
 		Container c = getContentPane();
 		c.setLayout(null);
-		Font fonte2 = new Font("Serif", Font.PLAIN, 18);
 
+		Font fonte2 = new Font("Serif", Font.PLAIN, 18);
 		Font fonte = new Font("Serif", Font.PLAIN, 20);
+
 		JLabel label = new JLabel("Trabalho");
 		label.setFont(fonte);
 		label.setForeground(Color.WHITE);
@@ -94,14 +94,22 @@ public class TrabalhoTela extends JFrame implements ActionListener, ListSelectio
 				Object src = e.getSource();
 
 				if (e.getValueIsAdjusting() && src == listasTrabalho) {
-					controller.exibirTrabalho(listasTrabalho.getSelectedValue().toString());
+					String nomeLista = listasTrabalho.getSelectedValue().toString();
+					Trabalho lista = usuario.buscarListaTrabalhoPeloNome(nomeLista);
+					new TelaTarefa(usuario, lista, "trabalho");
 					dispose();
-					System.out.println(listasTrabalho.getSelectedValue().toString());
-
 					setVisible(false);
 				}
 			}
 		});
+
+		// Listar previamente as listas
+		ArrayList<Trabalho> listaTarefaTrabalho = usuario.getTrabalho();
+		for (Trabalho trabalho : listaTarefaTrabalho) {
+			model.addElement(trabalho.getNome());
+		}
+		listasTrabalho.setModel(model);
+		setVisible(true);
 
 		JButton botaoAdicionar = new JButton("ADICIONAR");
 		botaoAdicionar.setLocation(50, 50);
@@ -111,20 +119,33 @@ public class TrabalhoTela extends JFrame implements ActionListener, ListSelectio
 		c.add(botaoAdicionar);
 		botaoAdicionar.addActionListener((ActionListener) new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String tip2 = Tipo2.getSelectedItem().toString();
-
-				Boolean tipo2;
-
-				if (tip2 == "À Distância") {
-					tipo2 = true;
+				if (Nome.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Coloque um nome para a lista", "Atenção!",
+							JOptionPane.ERROR_MESSAGE);
 				} else {
-					tipo2 = false;
+					JOptionPane.showMessageDialog(null, "Lista criada!", "Parabéns!", JOptionPane.DEFAULT_OPTION);
+
+					String nm = Nome.getText();
+					String dest = Destinatario.getText();
+					String tip2 = Tipo2.getSelectedItem().toString();
+
+					model.addElement(nm);
+					listasTrabalho.setModel(model);
+
+					Boolean tipo2;
+
+					if (tip2 == "Presencial") {
+						tipo2 = true;
+					} else {
+						tipo2 = false;
+					}
+
+					usuario.cadastrarTrabalho(nm, dest, tipo2);
+
+					setVisible(true);
 				}
-				controller.cadastrarTrabalho(Nome.getText(), Destinatario.getText(), tipo2);
-				model.addElement(Nome.getText());
-				listasTrabalho.setModel(model);
-				System.out.println(listasTrabalho);
 			}
+
 		});
 
 		JButton botaoVoltar = new JButton("VOLTAR");
@@ -134,7 +155,7 @@ public class TrabalhoTela extends JFrame implements ActionListener, ListSelectio
 		c.add(botaoVoltar);
 		botaoVoltar.addActionListener((ActionListener) new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new TelaOpcao();
+				usuario.irParaTelaOpcao();
 				dispose();
 			}
 		});
@@ -145,52 +166,15 @@ public class TrabalhoTela extends JFrame implements ActionListener, ListSelectio
 		setVisible(true);
 		setResizable(false);
 
+		listasTrabalho.setModel(model);
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if (Nome.getText().isEmpty()) {
-			JOptionPane.showMessageDialog(null, "Coloque um nome para a lita", "Atenção!", JOptionPane.ERROR_MESSAGE);
-		} else {
-			JOptionPane.showMessageDialog(null, "Lista criada!", "Parabéns!", JOptionPane.DEFAULT_OPTION);
-
-			String nome = Nome.getText();
-			String destinatario = Destinatario.getText();
-
-			String tip2 = Tipo2.getSelectedItem().toString();
-
-			Boolean Tipo2;
-
-			if (tip2 == "À Distancia") {
-				Tipo2 = true;
-			} else {
-				Tipo2 = false;
-			}
-
-			CadastroUsuarioController cadastroUsuarioController = new CadastroUsuarioController();
-			cadastroUsuarioController.cadastrarTrabalho(nome, destinatario, Tipo2);
-			setVisible(false);
-
-			JOptionPane.showMessageDialog(null, "Lista cadastrada com sucesso!");
-
-		}
-
+		// TODO Auto-generated method stub
 	}
 
 	public void valueChanged(ListSelectionEvent e) {
-		Object src = e.getSource();
-
-		if (e.getValueIsAdjusting() && src == listasTrabalho) {
-
-			controller.exibirTrabalho(listasTrabalho.getSelectedValue());
-			dispose();
-			System.out.println(listasTrabalho.getSelectedValue().toString());
-
-			setVisible(false);
-		}
-	}
-
-	public static void main(String[] args) {
-		new TrabalhoTela();
+		// TODO Auto-generated method stub
 	}
 
 }
