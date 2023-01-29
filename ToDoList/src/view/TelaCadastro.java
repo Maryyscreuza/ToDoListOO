@@ -14,6 +14,17 @@ import controller.*;
 
 import listadetarefas.Usuario;
 
+/**
+ * Classe da primeira tela do projeto, onde ocorre o cadastro do usuário. 
+ *
+ * @author Esther Sena Martins
+ * @author Mariiana Siqueira Neris
+ * 
+ * @since 2023
+ * @version 1.1
+ *
+ */
+
 public class TelaCadastro extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
@@ -25,6 +36,10 @@ public class TelaCadastro extends JFrame implements ActionListener {
 	JTextField jtnome = new JTextField();
 	JButton bntCadastrar = new JButton("Cadastrar");
 
+	/**
+	 * Método construtor que define os campos de preenchimento nome e email, e botão de cadastro. 
+	 */
+	
 	public TelaCadastro() {
 		super("Tarefa Pessoal");
 
@@ -57,6 +72,10 @@ public class TelaCadastro extends JFrame implements ActionListener {
 		f.setResizable(false);
 	}
 
+	/**
+	 * Método de uso do ActionListener que recebe os dados, cadastra o usuário e imprime na tela uma mensagem.  
+	 */
+	
 	public void actionPerformed(ActionEvent e) {
 
 		if (jtemail.getText().isEmpty() && jtnome.getText().isEmpty()) {
