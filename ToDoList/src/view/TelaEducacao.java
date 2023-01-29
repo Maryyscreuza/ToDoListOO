@@ -19,7 +19,7 @@ import javax.swing.event.ListSelectionListener;
 
 import controller.CadastroUsuarioController;
 
-public class EducacaoTela extends JFrame implements ActionListener, ListSelectionListener {
+public class TelaEducacao extends JFrame implements ActionListener, ListSelectionListener {
 
 	DefaultListModel model = new DefaultListModel();
 
@@ -29,7 +29,7 @@ public class EducacaoTela extends JFrame implements ActionListener, ListSelectio
 	private JComboBox<String> Participantes = new JComboBox<>();
 	private JList<String> listasEducacao;
 
-	public EducacaoTela(Usuario usuario) {
+	public TelaEducacao(Usuario usuario) {
 		super("Educacao");
 
 		Container c = getContentPane();

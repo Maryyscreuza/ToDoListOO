@@ -91,9 +91,9 @@ public class TelaTarefa extends JFrame {
 				if (tipoLista.equals("pessoal")) {
 					new TelaPessoal(usuario);
 				} else if (tipoLista.equals("educacao")) {
-					new EducacaoTela(usuario);
+					new TelaEducacao(usuario);
 				} else {
-					new TrabalhoTela(usuario);
+					new TelaTrabalho(usuario);
 				}
 
 				dispose();

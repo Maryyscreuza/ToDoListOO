@@ -27,7 +27,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-public class TrabalhoTela extends JFrame implements ActionListener, ListSelectionListener {
+public class TelaTrabalho extends JFrame implements ActionListener, ListSelectionListener {
 
 	DefaultListModel model = new DefaultListModel();
 
@@ -37,7 +37,7 @@ public class TrabalhoTela extends JFrame implements ActionListener, ListSelectio
 
 	private JList<String> listasTrabalho;
 
-	public TrabalhoTela(Usuario usuario) {
+	public TelaTrabalho(Usuario usuario) {
 		super("Trabalho");
 
 		Container c = getContentPane();

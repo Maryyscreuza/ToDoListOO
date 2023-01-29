@@ -43,7 +43,7 @@ public class TelaOpcao {
 		bEducacao.setBounds(475, 300, 270, 34);
 		bEducacao.addActionListener((ActionListener) new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new EducacaoTela(usuario);
+				new TelaEducacao(usuario);
 				f.setVisible(false);
 			}
 		});
@@ -53,7 +53,7 @@ public class TelaOpcao {
 		bTrabalho.setBounds(475, 370, 270, 34);
 		bTrabalho.addActionListener((ActionListener) new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new TrabalhoTela(usuario);
+				new TelaTrabalho(usuario);
 				f.setVisible(false);
 			}
 		});

@@ -13,8 +13,8 @@ import listadetarefas.Trabalho;
 
 import view.TelaOpcao;
 import view.TelaPessoal;
-import view.EducacaoTela;
-import view.TrabalhoTela;
+import view.TelaEducacao;
+import view.TelaTrabalho;
 
 public class CadastroUsuarioController {
 
