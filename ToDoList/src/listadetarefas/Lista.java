@@ -2,6 +2,16 @@ package listadetarefas;
 
 import java.util.ArrayList;
 
+/**
+ * 
+ * @author Esther Sena Martins
+ * @author Mariiana Siqueira Neris
+ * 
+ * @since 2023
+ * @version 1.1
+ *
+ */
+
 public abstract class Lista {
 
 	protected String nome;

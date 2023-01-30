@@ -15,6 +15,16 @@ import javax.swing.JTextField;
 import listadetarefas.Trabalho;
 import listadetarefas.Usuario;
 
+/**
+ * 
+ * @author Esther Sena Martins
+ * @author Mariiana Siqueira Neris
+ * 
+ * @since 2023
+ * @version 1.1
+ *
+ */
+
 public class EdicaoTrabalho extends JFrame {
 
 	public EdicaoTrabalho(Usuario usuario, Trabalho lista) {

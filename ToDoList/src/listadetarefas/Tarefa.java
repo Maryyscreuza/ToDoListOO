@@ -1,5 +1,15 @@
 package listadetarefas;
 
+/**
+ * 
+ * @author Esther Sena Martins
+ * @author Mariiana Siqueira Neris
+ * 
+ * @since 2023
+ * @version 1.1
+ *
+ */
+
 public class Tarefa {
 
 	private String titulo;

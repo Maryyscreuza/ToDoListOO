@@ -16,6 +16,16 @@ import listadetarefas.Tarefa;
 import listadetarefas.Usuario;
 import view.TelaTarefa;
 
+/**
+ * 
+ * @author Esther Sena Martins
+ * @author Mariiana Siqueira Neris
+ * 
+ * @since 2023
+ * @version 1.1
+ *
+ */
+
 public class EdicaoTarefa extends JFrame {
 
 	public EdicaoTarefa(Usuario usuario, Lista lista, Tarefa tarefa, String tipoLista) {

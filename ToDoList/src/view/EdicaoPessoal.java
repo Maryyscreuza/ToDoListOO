@@ -16,6 +16,16 @@ import controller.CadastroUsuarioController;
 import listadetarefas.Pessoal;
 import listadetarefas.Usuario;
 
+/**
+ * 
+ * @author Esther Sena Martins
+ * @author Mariiana Siqueira Neris
+ * 
+ * @since 2023
+ * @version 1.1
+ *
+ */
+
 public class EdicaoPessoal extends JFrame {
 
 	CadastroUsuarioController controller = new CadastroUsuarioController();

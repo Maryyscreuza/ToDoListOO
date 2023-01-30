@@ -25,6 +25,16 @@ import listadetarefas.Pessoal;
 import listadetarefas.Tarefa;
 import listadetarefas.Trabalho;
 
+/**
+ * 
+ * @author Esther Sena Martins
+ * @author Mariiana Siqueira Neris
+ * 
+ * @since 2023
+ * @version 1.1
+ *
+ */
+
 public class TelaTarefa extends JFrame {
 
 	DefaultListModel model = new DefaultListModel();

@@ -15,6 +15,16 @@ import java.awt.event.ActionEvent;
 import listadetarefas.Educacao;
 import listadetarefas.Usuario;
 
+/**
+ * 
+ * @author Esther Sena Martins
+ * @author Mariiana Siqueira Neris
+ * 
+ * @since 2023
+ * @version 1.1
+ *
+ */
+
 public class EdicaoEducacao extends JFrame {
 
 	public EdicaoEducacao(Usuario usuario, Educacao lista) {

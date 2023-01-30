@@ -22,6 +22,16 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+/**
+ * 
+ * @author Esther Sena Martins
+ * @author Mariiana Siqueira Neris
+ * 
+ * @since 2023
+ * @version 1.1
+ *
+ */
+
 public class TelaTrabalho extends JFrame implements ActionListener, ListSelectionListener {
 
 	DefaultListModel model = new DefaultListModel();
