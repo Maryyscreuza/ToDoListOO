@@ -2,11 +2,27 @@ package listadetarefas;
 
 import java.util.ArrayList;
 
+/**
+ * Classe Trabalho responsavel por cadastrar os dados da lista trabalho e herda
+ * da classe Lista.
+ * 
+ * @author Esther Sena Martins, Mariiana Siqueira Neris
+ *
+ */
+
 public class Trabalho extends Lista {
 
 	private String destinatario;
 	protected boolean Tipo2;
-	private boolean tipo2;
+
+	/**
+	 * Construtor responsavel por cadastrar o nome, destinatario e tipo os dados
+	 * necessarios para criar uma lista do tipo Trabalho.
+	 * 
+	 * @param nome         String recebera o nome da lista que o usuario colocar.
+	 * @param destinatario String recebera o destinatario da lista.
+	 * @param tip2         boolean recebe o tipo de trabalho escolhido.
+	 */
 
 	public Trabalho(String nome, String destinatario, boolean tip2) {
 		this.nome = nome;
@@ -25,21 +41,21 @@ public class Trabalho extends Lista {
 		this.destinatario = destinatario;
 	}
 
-	public boolean getTipo2(boolean tipo2) {
-		return tipo2;
+	public boolean getTipo2() {
+		return Tipo2;
 	}
 
-	public void setTipo2(boolean tipo2) {
-		this.Tipo2 = tipo2;
+	public void setTipo2(boolean Tipo2) {
+		this.Tipo2 = Tipo2;
 	}
 
 	// outros metodos
 
 	public String atualizaDados(boolean dados) {
 		if (toString() == "Presencial") {
-			tipo2 = true;
+			Tipo2 = true;
 		} else {
-			tipo2 = false;
+			Tipo2 = false;
 		}
 		return toString();
 	}

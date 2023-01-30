@@ -1,60 +1,48 @@
 package controller;
 
+import listadetarefas.Educacao;
+import listadetarefas.Pessoal;
 import listadetarefas.Usuario;
 
-import javax.swing.DefaultListModel;
-import javax.swing.JComboBox;
-
-import listadetarefas.Educacao;
-import listadetarefas.Lista;
-import listadetarefas.Pessoal;
-import listadetarefas.Tarefa;
-import listadetarefas.Trabalho;
+import java.util.ArrayList;
 
 import view.TelaOpcao;
-import view.TelaPessoal;
-import view.TelaEducacao;
-import view.TelaTrabalho;
+
+/**
+ * Classe para cadastrar um usuário, listas e tarefas e liga o package view e o
+ * package model.
+ * 
+ * @author Esther Sena Martins
+ * @author Mariiana Siqueira Neris
+ *
+ */
 
 public class CadastroUsuarioController {
 
-	private static final long serialVersionUID = 1L;
 	public static Usuario usuario;
-	public static Lista lista;
-	public static int i;
-	public Pessoal pessoal;
 
 	// cadastrar usuario
-
 	public void cadastrarUsuario(String email, String nome) {
 		usuario = new Usuario(email, nome);
-		System.out.println(usuario.getNome() + " - " + usuario.getEmail());
+		cadastrarDadosIniciais(usuario);
+
 		new TelaOpcao(usuario);
 	}
 
-	// crud lista educação
+	public void cadastrarDadosIniciais(Usuario usuario) {
+		ArrayList<Pessoal> listaPessoal = usuario.getPessoal();
+		ArrayList<Educacao> listaEducacao = usuario.getEducacao();
 
-	public void atualizaDadosEducação(int i, String nome, String campus, boolean tipo1, boolean participantes) {
-		usuario.getEducacao().get(i).setNome(nome);
-		usuario.getEducacao().get(i).setCampus(campus);
-		usuario.getEducacao().get(i).atualizaDados(tipo1);
-		usuario.getEducacao().get(i).atualizaDados(participantes);
-	}
+		// Lista Padrão
+		Pessoal listaPessoalPadrao = new Pessoal("Tarefas de Casa", "Casa", false);
+		listaPessoalPadrao.cadastrarTarefa("Limpar casa", "29/01");
 
-	public void excluirEducacao(Educacao educacao) {
-		usuario.excluirEducacao(educacao);
-	}
+		Educacao listaEducacaoPadrao = new Educacao("Tarefas de Estudo", "Faculdade", false, true);
+		listaEducacaoPadrao.cadastrarTarefa("Estudar para Prova de OO", "31/01");
 
-	public void excluirPessoal(String string) {
-		usuario.excluirPessoal(string);
-	}
-
-	// crud lista Trabalho
-	public void atualizaDadosTrabalho(int i, String nome, String destinatario, boolean tipo2) {
-		usuario.getTrabalho().get(i).setNome(nome);
-		usuario.getTrabalho().get(i).setDestinatario(destinatario);
-		usuario.getTrabalho().get(i).atualizaDados(tipo2);
-
+		// Tarefa Padrão
+		listaPessoal.add(listaPessoalPadrao);
+		listaEducacao.add(listaEducacaoPadrao);
 	}
 
 }

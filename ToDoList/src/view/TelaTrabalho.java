@@ -1,10 +1,5 @@
 package view;
 
-import controller.*;
-
-import controller.CadastroUsuarioController;
-import listadetarefas.Educacao;
-import listadetarefas.Pessoal;
 import listadetarefas.Trabalho;
 import listadetarefas.Usuario;
 
@@ -91,22 +86,25 @@ public class TelaTrabalho extends JFrame implements ActionListener, ListSelectio
 		c.add(listasTrabalho);
 		listasTrabalho.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
-				Object src = e.getSource();
-
-				if (e.getValueIsAdjusting() && src == listasTrabalho) {
-					String nomeLista = listasTrabalho.getSelectedValue().toString();
-					Trabalho lista = usuario.buscarListaTrabalhoPeloNome(nomeLista);
-					new TelaTarefa(usuario, lista, "trabalho");
-					dispose();
-					setVisible(false);
-				}
+				int index = e.getFirstIndex();
+				Trabalho listaSelecionada = usuario.getTrabalho().get(index);
+				new TelaTarefa(usuario, listaSelecionada, "trabalho");
+				dispose();
+				setVisible(false);
 			}
 		});
 
 		// Listar previamente as listas
 		ArrayList<Trabalho> listaTarefaTrabalho = usuario.getTrabalho();
 		for (Trabalho trabalho : listaTarefaTrabalho) {
-			model.addElement(trabalho.getNome());
+
+			String tipo = "Presencial";
+
+			if (trabalho.getTipo2() == false) {
+				tipo = "À Distância";
+			}
+
+			model.addElement(trabalho.getNome() + " - " + trabalho.getDestinatario() + " - " + tipo);
 		}
 		listasTrabalho.setModel(model);
 		setVisible(true);
@@ -116,6 +114,9 @@ public class TelaTrabalho extends JFrame implements ActionListener, ListSelectio
 		botaoAdicionar.setBounds(630, 200, 150, 23);
 		botaoAdicionar.setBackground(new Color(128, 128, 255));
 		botaoAdicionar.setForeground(new Color(255, 255, 255));
+		botaoAdicionar.setOpaque(true);
+		botaoAdicionar.setBorderPainted(false);
+
 		c.add(botaoAdicionar);
 		botaoAdicionar.addActionListener((ActionListener) new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -129,7 +130,7 @@ public class TelaTrabalho extends JFrame implements ActionListener, ListSelectio
 					String dest = Destinatario.getText();
 					String tip2 = Tipo2.getSelectedItem().toString();
 
-					model.addElement(nm);
+					model.addElement(nm + " - " + dest + " - " + tip2);
 					listasTrabalho.setModel(model);
 
 					Boolean tipo2;
@@ -152,6 +153,8 @@ public class TelaTrabalho extends JFrame implements ActionListener, ListSelectio
 		botaoVoltar.setBounds(450, 200, 150, 23);
 		botaoVoltar.setBackground(new Color(128, 128, 255));
 		botaoVoltar.setForeground(new Color(255, 255, 255));
+		botaoVoltar.setOpaque(true);
+		botaoVoltar.setBorderPainted(false);
 		c.add(botaoVoltar);
 		botaoVoltar.addActionListener((ActionListener) new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

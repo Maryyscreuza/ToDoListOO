@@ -15,10 +15,15 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import listadetarefas.Usuario;
+import listadetarefas.Educacao;
 import listadetarefas.Lista;
+import listadetarefas.Pessoal;
 import listadetarefas.Tarefa;
+import listadetarefas.Trabalho;
 
 public class TelaTarefa extends JFrame {
 
@@ -67,18 +72,27 @@ public class TelaTarefa extends JFrame {
 		jlista.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		c.add(jlista);
 
+		jlista.addListSelectionListener((ListSelectionListener) new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent e) {
+				int index = e.getFirstIndex();
+				Tarefa tarefaSelecionada = lista.getTarefas().get(index);
+				new EdicaoTarefa(usuario, lista, tarefaSelecionada, tipoLista);
+				dispose();
+			}
+		});
+
 		JButton botaoAdicionar = new JButton("ADICIONAR");
 		botaoAdicionar.setBounds(520, 200, 150, 23);
 		botaoAdicionar.setBackground(new Color(128, 128, 255));
 		botaoAdicionar.setForeground(new Color(255, 255, 255));
+		botaoAdicionar.setOpaque(true);
+		botaoAdicionar.setBorderPainted(false);
 		botaoAdicionar.addActionListener((ActionListener) new ActionListener() {
-
 			public void actionPerformed(ActionEvent e) {
 				model.addElement(Nome.getText() + " - " + Data.getText());
 				jlista.setModel(model);
 				lista.cadastrarTarefa(Nome.getText(), Data.getText());
-
-				JOptionPane msg = new JOptionPane("Tarefa cadastrada com sucesso!");
+				JOptionPane.showMessageDialog(null, "Tarefa cadastrada com sucesso!");
 			}
 		});
 
@@ -86,6 +100,8 @@ public class TelaTarefa extends JFrame {
 		botaoVoltar.setBounds(300, 600, 150, 23);
 		botaoVoltar.setBackground(new Color(128, 128, 255));
 		botaoVoltar.setForeground(new Color(255, 255, 255));
+		botaoVoltar.setOpaque(true);
+		botaoVoltar.setBorderPainted(false);
 		botaoVoltar.addActionListener((ActionListener) new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (tipoLista.equals("pessoal")) {
@@ -104,11 +120,21 @@ public class TelaTarefa extends JFrame {
 		botaoEditar.setBounds(500, 600, 150, 23);
 		botaoEditar.setBackground(new Color(128, 128, 255));
 		botaoEditar.setForeground(new Color(255, 255, 255));
+		botaoEditar.setOpaque(true);
+		botaoEditar.setBorderPainted(false);
 		botaoEditar.addActionListener((ActionListener) new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				model.clear();
-				jlista.setModel(model);
 
+				if (tipoLista.equals("pessoal")) {
+					new EdicaoPessoal(usuario, (Pessoal) lista);
+				} else if (tipoLista.equals("educacao")) {
+					new EdicaoEducacao(usuario, (Educacao) lista);
+				} else {
+					new EdicaoTrabalho(usuario, (Trabalho) lista);
+				}
+
+				dispose();
 			}
 		});
 
@@ -116,9 +142,21 @@ public class TelaTarefa extends JFrame {
 		botaoExcluir.setBounds(700, 600, 150, 23);
 		botaoExcluir.setBackground(new Color(128, 128, 255));
 		botaoExcluir.setForeground(new Color(255, 255, 255));
+		botaoExcluir.setOpaque(true);
+		botaoExcluir.setBorderPainted(false);
 		botaoExcluir.addActionListener((ActionListener) new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				usuario.apagarListaPeloNome(lista.getNome(), tipoLista);
+				String nomeDaLista = lista.getNome();
+				usuario.apagarListaPeloNome(nomeDaLista, tipoLista);
+				JOptionPane.showMessageDialog(null, "Lista " + nomeDaLista + " apagada!", "Sucesso!",
+						JOptionPane.DEFAULT_OPTION);
+				if (tipoLista.equals("pessoal")) {
+					new TelaPessoal(usuario);
+				} else if (tipoLista.equals("educacao")) {
+					new TelaEducacao(usuario);
+				} else {
+					new TelaTrabalho(usuario);
+				}
 
 			}
 		});
@@ -131,7 +169,6 @@ public class TelaTarefa extends JFrame {
 		// Listar previamente as tarefas
 		ArrayList<Tarefa> listaDeTarefas = lista.getTarefas();
 		for (Tarefa tarefa : listaDeTarefas) {
-			System.out.println(tarefa.getTitulo());
 			model.addElement(tarefa.getTitulo() + " - " + tarefa.getData());
 		}
 		jlista.setModel(model);

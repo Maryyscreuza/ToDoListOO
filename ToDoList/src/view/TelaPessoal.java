@@ -1,7 +1,6 @@
 package view;
 
 import javax.swing.DefaultListModel;
-import javax.swing.*;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -13,7 +12,6 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import controller.CadastroUsuarioController;
 import listadetarefas.Pessoal;
 import listadetarefas.Usuario;
 
@@ -24,6 +22,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+/**
+ * Classe que define a tela em que e possível cadastrar uma lista do tipo
+ * pessoal
+ * 
+ * @author Esther Sena Martins
+ * @author Mariiana Siqueira Neris
+ *
+ */
+
 public class TelaPessoal extends JFrame implements ActionListener, ListSelectionListener {
 
 	DefaultListModel model = new DefaultListModel();
@@ -32,7 +39,14 @@ public class TelaPessoal extends JFrame implements ActionListener, ListSelection
 	private JTextField Local;
 	private JComboBox<String> Tipo = new JComboBox<>();
 
-	private JList<String> listasPessoal;
+	private JList<String> jListaPessoal;
+
+	/**
+	 * Metodo que contem os campos nome, local e tipo necessarios para criar a
+	 * lista, alem de cadastrar essa lista.
+	 * 
+	 * @param usuario utilizado para salvar a lista.
+	 */
 
 	public TelaPessoal(Usuario usuario) {
 		super("Pessoal");
@@ -81,36 +95,40 @@ public class TelaPessoal extends JFrame implements ActionListener, ListSelection
 		c.add(Tipo);
 
 		String[] Lista = {};
-		JList<String> listasPessoal = new JList<>(Lista);
-		listasPessoal.setBounds(200, 250, 800, 300);
-		listasPessoal.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		c.add(listasPessoal);
-		listasPessoal.addListSelectionListener(new ListSelectionListener() {
+		JList<String> jListaPessoal = new JList<>(Lista);
+		jListaPessoal.setBounds(200, 250, 800, 300);
+		jListaPessoal.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		c.add(jListaPessoal);
+		jListaPessoal.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
-				System.out.println("Hey");
-				Object src = e.getSource();
-				if (e.getValueIsAdjusting() && src == listasPessoal) {
-					String nomeLista = listasPessoal.getSelectedValue().toString();
-					Pessoal lista = usuario.buscarListaPessoalPeloNome(nomeLista);
-					new TelaTarefa(usuario, lista, "pessoal");
-					dispose();
-					setVisible(false);
-				}
+				int index = e.getFirstIndex();
+
+				new TelaTarefa(usuario, usuario.getPessoal().get(index), "pessoal");
+				dispose();
+				setVisible(false);
 			}
 		});
 
 		// Listar previamente as listas
 		ArrayList<Pessoal> listaTarefaPessoal = usuario.getPessoal();
 		for (Pessoal pessoal : listaTarefaPessoal) {
-			model.addElement(pessoal.getNome());
+			String tipo = "Saúde";
+
+			if (pessoal.getTipo() == false) {
+				tipo = "Gerais";
+			}
+
+			model.addElement(pessoal.getNome() + " - " + pessoal.getLocal() + " - " + tipo);
 		}
-		listasPessoal.setModel(model);
+		jListaPessoal.setModel(model);
 		setVisible(true);
 
 		JButton botaoAdicionar = new JButton("ADICIONAR");
 		botaoAdicionar.setBounds(630, 200, 150, 23);
 		botaoAdicionar.setBackground(new Color(128, 128, 255));
 		botaoAdicionar.setForeground(new Color(255, 255, 255));
+		botaoAdicionar.setOpaque(true);
+		botaoAdicionar.setBorderPainted(false);
 		c.add(botaoAdicionar);
 		botaoAdicionar.addActionListener((ActionListener) new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -121,11 +139,10 @@ public class TelaPessoal extends JFrame implements ActionListener, ListSelection
 
 					String nome = Nome.getText();
 					String local = Local.getText();
-
 					String tip = Tipo.getSelectedItem().toString();
 
-					model.addElement(nome);
-					listasPessoal.setModel(model);
+					model.addElement(nome + " - " + local + " - " + tip);
+					jListaPessoal.setModel(model);
 
 					Boolean Tipo;
 
@@ -147,6 +164,8 @@ public class TelaPessoal extends JFrame implements ActionListener, ListSelection
 		botaoVoltar.setBounds(450, 200, 150, 23);
 		botaoVoltar.setBackground(new Color(128, 128, 255));
 		botaoVoltar.setForeground(new Color(255, 255, 255));
+		botaoVoltar.setOpaque(true);
+		botaoVoltar.setBorderPainted(false);
 		c.add(botaoVoltar);
 		botaoVoltar.addActionListener((ActionListener) new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -161,7 +180,7 @@ public class TelaPessoal extends JFrame implements ActionListener, ListSelection
 		setVisible(true);
 		setResizable(true);
 
-		listasPessoal.setModel(model);
+		jListaPessoal.setModel(model);
 
 	}
 

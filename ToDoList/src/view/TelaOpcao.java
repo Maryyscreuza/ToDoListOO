@@ -2,14 +2,23 @@ package view;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.*;
 import javax.swing.JButton;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import controller.*;
+
 import listadetarefas.Usuario;
+
+/**
+ * Classe contendo a tela que tera o menu de opcoes, que levara o usuario para
+ * as listas.
+ * 
+ * @author Esther Sena Martins
+ * @author Mariiana Siqueira Neris
+ * 
+ */
 
 public class TelaOpcao {
 
@@ -18,6 +27,12 @@ public class TelaOpcao {
 	JButton bPessoal = new JButton("Pessoal");
 	JButton bEducacao = new JButton("Educacao");
 	JButton bTrabalho = new JButton("Trabalho");
+
+	/**
+	 * Metodo construtor que instancia os botoes que levarao o usuario para as
+	 * demais telas.
+	 * 
+	 */
 
 	public TelaOpcao(Usuario usuario) {
 
@@ -29,7 +44,10 @@ public class TelaOpcao {
 
 		bPessoal.setForeground(new Color(255, 255, 255));
 		bPessoal.setBackground(new Color(128, 128, 255));
+		bPessoal.setOpaque(true);
+		bPessoal.setBorderPainted(false);
 		bPessoal.setBounds(475, 230, 270, 34);
+
 		bPessoal.addActionListener((ActionListener) new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new TelaPessoal(usuario);
@@ -40,6 +58,8 @@ public class TelaOpcao {
 
 		bEducacao.setForeground(new Color(255, 255, 255));
 		bEducacao.setBackground(new Color(128, 128, 255));
+		bEducacao.setOpaque(true);
+		bEducacao.setBorderPainted(false);
 		bEducacao.setBounds(475, 300, 270, 34);
 		bEducacao.addActionListener((ActionListener) new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -50,6 +70,8 @@ public class TelaOpcao {
 
 		bTrabalho.setForeground(new Color(255, 255, 255));
 		bTrabalho.setBackground(new Color(128, 128, 255));
+		bTrabalho.setOpaque(true);
+		bTrabalho.setBorderPainted(false);
 		bTrabalho.setBounds(475, 370, 270, 34);
 		bTrabalho.addActionListener((ActionListener) new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

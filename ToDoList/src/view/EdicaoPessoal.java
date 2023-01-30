@@ -7,19 +7,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.border.LineBorder;
 
 import controller.CadastroUsuarioController;
+import listadetarefas.Pessoal;
+import listadetarefas.Usuario;
 
 public class EdicaoPessoal extends JFrame {
 
 	CadastroUsuarioController controller = new CadastroUsuarioController();
 
-	public EdicaoPessoal() {
+	public EdicaoPessoal(Usuario usuario, Pessoal lista) {
 		super("Edição Pessoal");
 
 		Container c = getContentPane();
@@ -40,7 +41,7 @@ public class EdicaoPessoal extends JFrame {
 		EditarNome.setBounds(50, 50, 230, 34);
 		c.add(EditarNome);
 
-		JTextField Nome = new JTextField(controller.usuario.getPessoal().get(i).getNome());
+		JTextField Nome = new JTextField(lista.getNome());
 		Nome.setBounds(50, 80, 230, 34);
 		c.add(Nome);
 
@@ -50,15 +51,9 @@ public class EdicaoPessoal extends JFrame {
 		EditarLocal.setBounds(300, 50, 230, 34);
 		c.add(EditarLocal);
 
-		JTextField Local = new JTextField(controller.usuario.getPessoal().get(i).getLocal());
+		JTextField Local = new JTextField(lista.getLocal());
 		Local.setBounds(300, 80, 230, 34);
 		c.add(Local);
-
-		JLabel EditarTipo = new JLabel("Editar Tipo:");
-		EditarTipo.setForeground(Color.WHITE);
-		EditarTipo.setFont(fonte2);
-		EditarTipo.setBounds(170, 120, 220, 34);
-		c.add(EditarTipo);
 
 		JButton jbtSalvar = new JButton("Salvar");
 		jbtSalvar.addActionListener(new ActionListener() {
@@ -74,26 +69,24 @@ public class EdicaoPessoal extends JFrame {
 
 				String nomeP = Nome.getText();
 				String localP = Local.getText();
-				String tipoP = Tipo.getSelectedItem().toString();
 
-				controller.editarDadosPessoal(nomeP, localP, tipoP);
+				lista.setNome(nomeP);
+				lista.setLocal(localP);
+
 				JOptionPane.showMessageDialog(null, "Dados alterados com sucesso!");
 
-				new TarefaPessoal();
+				new TelaPessoal(usuario);
 				dispose();
 			}
 		});
 
 		c.setBackground(new Color(128, 128, 255));
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(600, 300);
 		setVisible(true);
 		setResizable(false);
 
-	}
-
-	public static void main(String[] args) {
-		new EdicaoPessoal();
 	}
 
 }

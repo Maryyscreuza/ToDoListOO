@@ -1,23 +1,17 @@
 package view;
 
-import controller.*;
 import listadetarefas.Usuario;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.util.ArrayList;
 
 import listadetarefas.Educacao;
-import listadetarefas.Lista;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-
-import controller.CadastroUsuarioController;
 
 public class TelaEducacao extends JFrame implements ActionListener, ListSelectionListener {
 
@@ -95,15 +89,10 @@ public class TelaEducacao extends JFrame implements ActionListener, ListSelectio
 		c.add(listasEducacao);
 		listasEducacao.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
-				Object src = e.getSource();
-
-				if (e.getValueIsAdjusting() && src == listasEducacao) {
-					String nomeLista = listasEducacao.getSelectedValue().toString();
-					Educacao lista = usuario.buscarListaEducacaoPeloNome(nomeLista);
-					new TelaTarefa(usuario, lista, "educação");
-					dispose();
-					setVisible(false);
-				}
+				int index = e.getFirstIndex();
+				new TelaTarefa(usuario, usuario.getEducacao().get(index), "educacao");
+				dispose();
+				setVisible(false);
 			}
 		});
 
@@ -117,7 +106,19 @@ public class TelaEducacao extends JFrame implements ActionListener, ListSelectio
 
 		ArrayList<Educacao> listaTarefaEducacao = usuario.getEducacao();
 		for (Educacao educacao : listaTarefaEducacao) {
-			model.addElement(educacao.getNome());
+
+			String tipo = "Prova";
+			String participantes = "Solo";
+
+			if (educacao.getTipo1() == false) {
+				tipo = "Trabalho";
+			}
+
+			if (educacao.getParticipantes() == false) {
+				participantes = "Grupo";
+			}
+
+			model.addElement(educacao.getNome() + " - " + educacao.getCampus() + " - " + tipo + " - " + participantes);
 		}
 		listasEducacao.setModel(model);
 		setVisible(true);
@@ -135,7 +136,7 @@ public class TelaEducacao extends JFrame implements ActionListener, ListSelectio
 					String tip1 = Tipo1.getSelectedItem().toString();
 					String part = Participantes.getSelectedItem().toString();
 
-					model.addElement(nm);
+					model.addElement(nm + " - " + camp + " - " + tip1 + " - " + part);
 					listasEducacao.setModel(model);
 
 					Boolean tipo1;
@@ -166,6 +167,8 @@ public class TelaEducacao extends JFrame implements ActionListener, ListSelectio
 		botaoVoltar.setBounds(450, 200, 150, 23);
 		botaoVoltar.setBackground(new Color(128, 128, 255));
 		botaoVoltar.setForeground(new Color(255, 255, 255));
+		botaoVoltar.setOpaque(true);
+		botaoVoltar.setBorderPainted(false);
 		c.add(botaoVoltar);
 		botaoVoltar.addActionListener((ActionListener) new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
